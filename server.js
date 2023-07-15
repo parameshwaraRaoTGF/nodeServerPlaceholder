@@ -59,7 +59,7 @@ let firebaseFolderName = config.get('firebaseStorageFolderName');
  */
 
 app.post('/fileList', [
-    check('basePath', 'please send file basePath!!').not().isEmpty()
+    check('userPath', 'please send file basePath!!').not().isEmpty()
 ],
     async (req, res) => {
 
@@ -72,11 +72,11 @@ app.post('/fileList', [
 
             //extract base path
 
-            let { body: { basePath } } = req;
+            let { body: { userPath } } = req;
 
             //set the folder name
 
-            let foldername = `${firebaseFolderName}${basePath}`;
+            let foldername = `${firebaseFolderName}${userPath}`;
 
             //create firebase reference
 

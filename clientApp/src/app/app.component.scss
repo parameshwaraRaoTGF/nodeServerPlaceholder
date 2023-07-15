@@ -1,0 +1,136 @@
+//input items
+.input_bloc {
+    padding: 0.2em;
+    font-weight: 700;
+}
+
+.inputLabel {
+    text-decoration: underline;
+}
+
+.inputbox {
+    width: 60%;
+    border-radius: 7px;
+    border: 1px solid grey;
+}
+
+.errorMessage {
+    color: red;
+}
+
+.userInputBlock {
+    padding: 2.3em;
+    margin: 3em;
+    border: 1px solid red;
+}
+
+$initiateSession:#b55cc7;
+.validateUserName{
+  margin-top: 0.4em;
+  padding: 0.3em;
+    border: 1px solid white;
+    background-color: $initiateSession;
+    color: black;
+    font-weight: 400;
+    border-radius: 8px;
+    cursor: pointer;
+    &:hover{
+      color:lighten($initiateSession,10%) !important;
+      background-color:#2a105c;
+      transition: all 0.3s ease-out;
+  }
+}
+
+.banner {
+    background-color: black;
+    text-align: center;
+    border-bottom: 5px solid #4BA2E5;
+}
+
+.main_title {
+    font-size: 5em;
+    font-family: lemonJellyHeading;
+}
+
+.main-title-firstPart {
+    color: #4BA2E5;
+}
+
+.main-title-secondPart {
+    color: #d6e226;
+}
+
+
+
+
+
+.footer-Class {
+    background-color: #E8491D;
+    height: 45px;
+}
+
+.main-container {
+    min-height: calc(100vh - 45px);
+    background: url('./../assets/images/backgroundTexture.jpg');
+}
+
+
+
+
+
+//spinner
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid black;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 0.4s linear infinite;
+    /* Safari */
+    animation: spin 0.4s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+.overlay {
+    content: '';
+    display: block;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.25);
+    z-index: 999;
+}
+
+.loading-spinnerPosition {
+    width: 2em;
+    height: 69%;
+    margin: auto;
+    position: absolute;
+    left: 0 !important;
+    bottom: 0;
+    right: 0;
+    top: 320px;
+    z-index: 999;
+}

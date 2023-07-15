@@ -1,0 +1,42 @@
+/* You can add global styles to this file, and also import other style files */
+
+/*import fonts here and name them to be used through out apps*/
+@font-face {
+    font-family: youtTouch;
+    src: url("assets/fonts/youthTouch.ttf") format('truetype');
+  }
+
+
+  @font-face {
+    font-family: lemonJellyHeading;
+    src: url("assets/fonts/lemonJelly.ttf") format('truetype');
+  }
+
+  @font-face {
+    font-family: blogText;
+    src: url("assets/fonts/slabo.ttf") format('truetype');
+  }
+
+  @font-face {
+    font-family: catchyHeader;
+    src: url("assets/fonts/moodyCheese.ttf") format('truetype');
+  }
+
+  @font-face {
+    font-family: sweetApricot;
+    src: url("assets/fonts/sweetApricot.ttf") format('truetype');
+  }
+
+  @font-face {
+    font-family: amandaBlack;
+    src: url("assets/fonts/amandaBlack.ttf") format('truetype');
+  }
+
+  @font-face {
+    font-family: feelFree;
+    src: url("assets/fonts/feelFree.ttf") format('truetype');
+  }
+
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+@import url('https://fonts.googleapis.com/css?family=Satisfy');

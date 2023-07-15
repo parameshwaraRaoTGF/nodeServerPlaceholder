@@ -1,0 +1,72 @@
+<section *ngIf="showGridSpinner">
+  <div class="overlay"></div>
+  <div class="loading-spinnerPosition">
+    <div class="loader"></div>
+  </div>
+</section>
+
+<!--banner-->
+<div class="banner">
+  <h1 class="main_title"><span class="main-title-firstPart">Rao's Node JS</span><span class="main-title-secondPart">
+      File Zipper</span></h1>
+</div>
+
+
+
+<!--blog space-->
+<div class="blog-container">
+
+
+  <!--blog section-->
+  <div class="main-container">
+    <div>
+      <h4>
+        Upload files here and compress them. Please enter name and compressed name to proceed further. Simply
+        upload the files in upload section and click the compress files button!
+      </h4>
+    </div>
+
+    <div class="userInputBlock">
+      <form [formGroup]="userZipDetailsForm">
+        <div class="input_bloc">
+          <div>
+            <span class="inputLabel">Enter your name!! </span>
+          </div>
+          <div>
+            <input type="text" placeholder="Enter your name!" class="inputbox" formControlName="userPath" />
+          </div>
+          <div>
+            <span class="errorMessage" *ngIf="inputboxValidation('userPath')">Please enter your name!! </span>
+          </div>
+          <div>
+            <button class="validateUserName" (click)="validateName()">
+                Validate Name!</button>
+        </div>
+        </div>
+
+        <div class="input_bloc">
+          <div>
+            <span class="inputLabel"> Enter compressed file name! </span>
+          </div>
+          <div>
+            <input type="text" placeholder="Enter file compressed name!" class="inputbox"
+              formControlName="compressedFilename" />
+          </div>
+          <div>
+            <span class="errorMessage" *ngIf="inputboxValidation('compressedFilename')">Please enter file compressed
+              name!! </span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+</div>
+
+<!-- Footer -->
+<footer class="footer-Class">
+  <div class="container">
+    <p class="m-0 text-center text-white">Copyright &copy; Rao Awesome</p>
+  </div>
+</footer>

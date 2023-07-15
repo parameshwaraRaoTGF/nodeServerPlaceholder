@@ -1,0 +1,11 @@
+{
+  "firebase": {
+    "apiKey": "AIzaSyAAmc_WD8OgDANp-2o1YmcgwhbMwL5WA-w",
+    "authDomain": "nodejsfilzezipperrao.firebaseapp.com",
+    "projectId": "nodejsfilzezipperrao",
+    "storageBucket": "nodejsfilzezipperrao.appspot.com",
+    "messagingSenderId": "296167746272",
+    "appId": "1:296167746272:web:434507fb6ea03a78e2fe85"
+  },
+  "firebaseStorageFolderName":"fileZipperTemp/"
+}

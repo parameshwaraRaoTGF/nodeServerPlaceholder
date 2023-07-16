@@ -114,7 +114,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
 
-  //delete files Handler
+  //delete a single file Handler
 
   public deleteAFile(fileName: string) {
 
@@ -218,7 +218,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
       this._zippedFileService.uploadFiles(this.userPathName, files).subscribe({
         next: (data) => {
-          console.log(data);
+          
 
           //get updated list from firebase storage
           this.getFileListFromGCP();

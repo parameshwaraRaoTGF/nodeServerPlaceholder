@@ -80,6 +80,48 @@
     color: #250791;
 }
 
+.filesList{
+    padding: 1em;
+    margin: 3em;
+    border: 2px solid darkcyan;
+}
+
+.uploadedFileValContainer{
+    padding: 0.3em;
+}
+
+@mixin uploadedFileVal{
+    font-weight: 900;
+    font-size: 1.3em;
+    
+}
+.uploadedFileValue{
+   @include uploadedFileVal;
+   color: darkgreen;
+}
+
+.uploadedFileOrder{
+    @include uploadedFileVal;
+    color: black;
+}
+
+$delethisfile: #f81706;
+
+.deleteThisFileButton {
+    margin-top: 0.4em;
+    padding: 0.2em;
+    border: 1px solid white;
+    background-color: $delethisfile;
+    color: white;
+    font-weight: 400;
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: lighten($delethisfile, 20%) !important;
+        transition: all 0.3s ease-out;
+    }
+}
 
 
 .file-detailsBlock {

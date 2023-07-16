@@ -108,10 +108,19 @@
     </div>
 
     
-    <div class="FilesList">
-
-      {{listFiles | json}}
-
+    <div class="filesList">
+      <div class="fileListHeader">
+        <h3 class="instructionHeader">Files Uploaded And Ready To Be Zipped!!</h3>
+      </div>
+      <div class="listContainer" *ngFor="let file of listFiles;let i = index">
+        <div class="uploadedFileValContainer">
+        <span class="uploadedFileOrder">{{i+1}}{{' . '}}</span><span class="uploadedFileValue">{{file}}</span>
+        </div>
+        <div>
+          <button class="deleteThisFileButton" (click)="deleteAFile(file)" >
+           Delete this file!</button>
+        </div>
+      </div>
     </div>
 
     <div class="compressedFileButtonBlock">

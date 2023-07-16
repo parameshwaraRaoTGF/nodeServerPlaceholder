@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '
 import { Router } from '@angular/router';
 import { LoadingServiceService } from './shared/service/loading-service.service';
 import { Subscription } from 'rxjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { zippedFileService } from './shared/service/zippedFile.service';
 
 export interface zippedFileList {
@@ -18,7 +18,7 @@ export interface zippedFileList {
 export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   sub: Subscription = new Subscription();
 
-  userZipDetailsForm: FormGroup = new FormGroup({});
+  userZipDetailsForm: UntypedFormGroup = new UntypedFormGroup({});
 
   showGridSpinner: boolean = false;
 
@@ -30,7 +30,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private _LoadingServiceService: LoadingServiceService,
     private cdRef: ChangeDetectorRef,
-    private _FormBuilder: FormBuilder,
+    private _FormBuilder: UntypedFormBuilder,
     private _zippedFileService: zippedFileService
   ) {
 

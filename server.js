@@ -35,7 +35,13 @@ app.use(express.json({ extended: false }));
 //enable cors
 app.use(cors());
 
-app.get('/', (req, res) => res.send(`file zipper app is running!`));
+const path = require('path');
+
+app.use(express.static(path.join(__dirname, 'raomeanapp')));
+
+app.get('*', (req, res) =>{
+    res.sendFile(`${__dirname}/raomeanapp/index.html`);
+} );
 
 
 

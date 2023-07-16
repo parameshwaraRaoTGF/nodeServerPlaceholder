@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, catchError, throwError, forkJoin, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { userRequestBody, authenicationStatus } from '../models/user.model';
@@ -12,50 +12,14 @@ import { createEmployeeReqbody, empoloyeeListReq, updateEmployeeReqBody } from '
 })
 export class zippedFileService {
 
-  //flag to check if user authenticated
-  public isUserAuthenticated: boolean = false;
-  public userName: string = "";
   baseURL: string = `${environment.backendOrigin}/`;
-  authToken: string = "";
-  loginURL: string = "api/auth";
-  signUpURL: string = "api/users";
-  userExistURL: string = "api/auth/userExist";
-  updatePasswordURL: string = "api/auth/updatePassword";
-  
-  
+  //fileupload URL's
+  fileUploadURL: string = "/uploadFile";
+  compressedFileURL: string = "/compressedFileListDownload";
+  listAllFilesURL: string = "/fileList";
+  deleteAllFiles: string = "/deleteFile";
 
-  employeeListURL: string = "api/employee/List";
-  createEmployeeURL: string = "api/employee/CreateEmployee";
-  employeeDetailURL: string = "api/employee/employeeDetail";
-  updateEmployeeURL: string = "api/employee/updateEmployee";
-  removeEmployeeURL: string = "api/employee/RemoveEmployee";
-
-  getAllDepartmentOptionURL: string = "api/employee/DepartmentOptions";
-  getAllBussinessOptionURL: string = "api/employee/BussinessUnitOptions";
-  getAllCountryOptionURL: string = "api/employee/CountryOptions";
-  getallCityOptionsURL: string = "api/employee/CityOptions";
-  getallGenderOptionsURL: string = "api/employee/GenderOptions";
-  getallEthnicityOptionsURL: string = "api/employee/EthnicityOptions";
-
- 
-
-  
- 
-
-
-
-
-  constructor(private _httpClient: HttpClient) {
-   
-     
-
-   
-
-  }
-
-
-
-  
+  constructor(private _httpClient: HttpClient) { }
 
   getHttpUrl(urlSegment: string): string {
     return `${this.baseURL}${urlSegment}`;
@@ -66,101 +30,91 @@ export class zippedFileService {
     return throwError(() => errorResponse);
   }
 
-  public userLogin(userName: string = "", userPassword: string = ""): Observable<any> {
-    let url: string = this.getHttpUrl(this.loginURL);
+  /**
+   * This lists all Files present in firebase storage
+   * @param userName :- this is sub folder directory in GCP firebase storage
+   * @returns 
+   */
+
+  public listAllFiles(userName: string): Observable<any> {
+    let url: string = this.getHttpUrl(this.listAllFilesURL);
     return this._httpClient.post(url, {
-      email: userName,
-      password: userPassword
+      userPath: userName
     }).pipe(catchError(this.errorHandler));
   }
 
-  public signUpUsers(userDetails: userRequestBody): Observable<any> {
-    let url: string = this.getHttpUrl(this.signUpURL);
-    return this._httpClient.post(url, userDetails).pipe(catchError(this.errorHandler));
+  /**
+   * This delete Files present in firebase storage. Pass all file names accordingly
+   * @param userName :- this is sub folder directory in GCP firebase storage
+   * @param filesList :- this contains names of files to delete
+   * @returns 
+   */
+
+  public deleteFiles(userName: string, filesList: Array<string>): Observable<any> {
+    let url: string = this.getHttpUrl(this.deleteAllFiles);
+
+    let options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: {
+      userPath: userName,
+      filesToDelete: filesList
+      },
+    };
+
+
+    return this._httpClient.delete(url,options).pipe(catchError(this.errorHandler));
   }
 
-  public validateUser(useEmail: string = "", appSecertKey: string = ""): Observable<any> {
-    let url: string = this.getHttpUrl(this.userExistURL);
-    return this._httpClient.post(url, {
-      email: useEmail,
-      secertKey: appSecertKey
-    }).pipe(catchError(this.errorHandler));
-  }
+  /**
+   * This upload files to GCP storage. we are using rxjs forkjoin to make multiple calls and upload files
+   * simultaneously
+   * @param userName :- this is sub folder directory in GCP firebase storage
+   * @returns 
+   */
 
-  public changeUserPassword(userReferenceID: string = "", updatedPassword: string = ""): Observable<any> {
-    let url: string = this.getHttpUrl(this.updatePasswordURL);
-    return this._httpClient.post(url, {
-      _id: userReferenceID,
-      updatedPassword: updatedPassword
-    }).pipe(catchError(this.errorHandler));
-  }
-
-  //employee
-  public getEmployeeList(employeeListReq: empoloyeeListReq): Observable<any> {
-    let url: string = this.getHttpUrl(this.employeeListURL);
-    return this._httpClient.post(url, employeeListReq).pipe(catchError(this.errorHandler));
-  }
-
-  public getEmployeeDetail(userReferenceID: string = ""): Observable<any> {
-    let url: string = this.getHttpUrl(this.employeeDetailURL);
-    url = `${url}/${userReferenceID}`;
-    return this._httpClient.get(url).pipe(catchError(this.errorHandler));
-  }
-
-  public createEmployee(newEmployeeReq: createEmployeeReqbody): Observable<any> {
-    let url: string = this.getHttpUrl(this.createEmployeeURL);
-    return this._httpClient.post(url, newEmployeeReq).pipe(catchError(this.errorHandler));
-  }
-
-  public updateEmployee(updateEmployeeReq: updateEmployeeReqBody): Observable<any> {
-    let url: string = this.getHttpUrl(this.updateEmployeeURL);
-    return this._httpClient.put(url, updateEmployeeReq).pipe(catchError(this.errorHandler));
-  }
-
-  public deleteEmployee(employeeObjectid: string = ""): Observable<any> {
-    let url: string = this.getHttpUrl(this.removeEmployeeURL);
-    url = `${url}/${employeeObjectid}`;
-    return this._httpClient.delete(url).pipe(catchError(this.errorHandler));
-  }
-
-
-  //forkjoin concept
-
-  public getAllSearchOptions(): Observable<any> {
-
-
+  public uploadFiles(userName: string, filesToUpload: Array<File>): Observable<any> {
+    let url: string = this.getHttpUrl(this.fileUploadURL);
 
     let AllrequestObservables = [];
 
-    //department options
-    let departmentUrl: string = this.getHttpUrl(this.getAllDepartmentOptionURL);
-    AllrequestObservables.push(this._httpClient.get(departmentUrl).pipe(catchError(this.errorHandler)));
+    for (let file of filesToUpload) {
+      // Create form data
+      const formData = new FormData();
 
-    //bussiness options
-    let bussinessOptionUrl: string = this.getHttpUrl(this.getAllBussinessOptionURL);
-    AllrequestObservables.push(this._httpClient.get(bussinessOptionUrl).pipe(catchError(this.errorHandler)));
+      // Store form name as "file" with file data
+      formData.append("samplefile", file, file.name);
 
-    //country options
-    let countryOptionUrl: string = this.getHttpUrl(this.getAllCountryOptionURL);
-    AllrequestObservables.push(this._httpClient.get(countryOptionUrl).pipe(catchError(this.errorHandler)));
+      //set headers for reference
+      let headersToSend = new HttpHeaders({userPath:userName});
 
-    //city options
-    let cityOptionUrl: string = this.getHttpUrl(this.getallCityOptionsURL);
-    AllrequestObservables.push(this._httpClient.get(cityOptionUrl).pipe(catchError(this.errorHandler)));
 
-    //gender options
-    let genderOptionUrl: string = this.getHttpUrl(this.getallGenderOptionsURL);
-    AllrequestObservables.push(this._httpClient.get(genderOptionUrl).pipe(catchError(this.errorHandler)));
-
-    //ethnicity options
-    let ethnicityOptionUrl: string = this.getHttpUrl(this.getallEthnicityOptionsURL);
-    AllrequestObservables.push(this._httpClient.get(ethnicityOptionUrl).pipe(catchError(this.errorHandler)));
-
+      //push the observables in master list    
+      AllrequestObservables.push(this._httpClient.post(url, formData,{
+        headers:headersToSend,
+        reportProgress: true,
+        observe: 'events'}).pipe(catchError(this.errorHandler)));
+    }
 
     return forkJoin(AllrequestObservables);
-
   }
 
-  
+
+/**
+   * This delete Files present in firebase storage. Pass all file names accordingly
+   * @param userName :- this is sub folder directory in GCP firebase storage
+   * @param filesList :- this contains names of files to delete
+   * @returns 
+   */
+
+public downloadFilesAsCompressed(userName: string, outputFileName: string): Observable<any> {
+  let url: string = this.getHttpUrl(this.compressedFileURL);
+  return this._httpClient.post(url, {
+    userPath: userName,
+    compressedFilename: outputFileName
+  },{observe: 'response' , responseType: 'blob'}).pipe(catchError(this.errorHandler));
+}
+
 
 }

@@ -19,11 +19,29 @@
 
   <!--blog section-->
   <div class="main-container">
-    <div>
-      <h4>
-        Upload files here and compress them. Please enter name and compressed name to proceed further. Simply
-        upload the files in upload section and click the compress files button!
-      </h4>
+
+    <div class="info-container">
+      <div>
+        <h3>Upload Files and Compress them!!</h3>
+      </div>
+      <div>
+        <h5>
+          <h3 class="instructionHeader">Instructions!!</h3>
+        </h5>
+      </div>
+      <div class="instruction-list">
+        <h5 class="instruction-group">
+          1.<span class="main-instruction">Please enter name and click validate Name button!</span>
+          <br>
+          2.Enter compressed file name to give the output of the file name
+          <br>
+          3.upload the files in upload section and click the compress files button!
+          <br>
+          Note: <span class="noted-info">The name should appear in file details section!! please click validate button
+            after
+            entering name!</span>
+        </h5>
+      </div>
     </div>
 
     <div class="userInputBlock">
@@ -36,12 +54,13 @@
             <input type="text" placeholder="Enter your name!" class="inputbox" formControlName="userPath" />
           </div>
           <div>
-            <span class="errorMessage" *ngIf="inputboxValidation('userPath')">Please enter your name!! </span>
+            <span class="errorMessage" *ngIf="inputboxValidation('userPath')">Please enter your name with minimum 5
+              characters!! </span>
           </div>
           <div>
             <button class="validateUserName" (click)="validateName()">
-                Validate Name!</button>
-        </div>
+              Validate Name!</button>
+          </div>
         </div>
 
         <div class="input_bloc">
@@ -58,7 +77,46 @@
           </div>
         </div>
       </form>
+      <div class="file-detailsBlock">
+        <div>
+          <h5 class="fileDetails">File Details!!</h5>
+        </div>
+        <div>
+          <div>
+            <span class="fileInfo">Name : </span><span class="fileNameValue">{{userPathName || '- - -'}}</span>
+          </div>
+          <div>
+            <span class="fileDetailInfo">Note : </span><span class="fileDetailInfoMessage">click on validate name button
+              incase after entering name above!!</span>
+          </div>
+          <div>
+            <div>
+              <span class="fileInfo">compressedFileName : </span><span class="fileCompressedValue"
+                *ngIf="userZipDetailsForm.value">{{userZipDetailsForm.value.compressedFilename || '- - -'}}</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
+
+    <div class="dragAndDropZone">
+      <div class="dropzone" fileDragDrop (filesChangeEmiter)="onFileDragAndDrop($event)">        
+            <input type="file" name="file" id="file" (change)="onFileSubmit($event)" multiple>
+            <label for="file"><span class="textLink">Select your file</span> or Drop it here!</label>  
+      </div>
+    </div>
+
+    <div class="FilesList">
+
+    </div>
+
+    <div class="compressedFileButtonBlock">
+      <button class="compressFileButton" (click)="compressFiles()">
+        Compress Above Files!</button>
+    </div>
+
+
   </div>
 
 

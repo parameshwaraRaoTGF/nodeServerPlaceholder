@@ -24,22 +24,126 @@
     border: 1px solid red;
 }
 
-$initiateSession:#b55cc7;
-.validateUserName{
-  margin-top: 0.4em;
-  padding: 0.3em;
+.info-container {
+    text-align: center;
+    padding: 1.2em;
+}
+
+.instruction-group {
+    line-height: 1.5;
+}
+
+.main-instruction {
+    color: #ad0a41;
+    animation: blinker 0.61s linear infinite;
+    font-weight: 900;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.noted-info {
+    color: #0c1674;
+}
+
+.fileDetails {
+    text-decoration: underline;
+    font-family: catchyHeader;
+}
+
+.instructionHeader {
+    text-decoration: underline;
+    font-family: catchyHeader;
+}
+
+@mixin filedetailsinfoBlock {
+    font-size: 1em;
+    font-weight: 900;
+}
+
+.fileInfo {
+    @include filedetailsinfoBlock;
+
+}
+
+.fileCompressedValue {
+    @include filedetailsinfoBlock;
+    color: #d1178a;
+}
+
+
+.fileNameValue {
+    @include filedetailsinfoBlock;
+    color: #250791;
+}
+
+
+
+.file-detailsBlock {
+    padding: 1em;
+}
+
+@mixin fileDetailInfo {
+    font-size: 1em;
+    animation: blinker 1.5s linear infinite;
+}
+
+.fileDetailInfo {
+    @include fileDetailInfo;
+    animation: blinker 1.5s linear infinite;
+}
+
+.fileDetailInfoMessage {
+    @include fileDetailInfo;
+    color: red;
+}
+
+$initiateSession: #b55cc7;
+
+.validateUserName {
+    margin-top: 0.4em;
+    padding: 0.3em;
     border: 1px solid white;
     background-color: $initiateSession;
     color: black;
     font-weight: 400;
     border-radius: 8px;
     cursor: pointer;
-    &:hover{
-      color:lighten($initiateSession,10%) !important;
-      background-color:#2a105c;
-      transition: all 0.3s ease-out;
-  }
+
+    &:hover {
+        color: lighten($initiateSession, 10%) !important;
+        background-color: #2a105c;
+        transition: all 0.3s ease-out;
+    }
 }
+
+
+.compressedFileButtonBlock {
+    text-align: center;
+    padding: 1em;
+}
+
+$compressFileButton: #6d130d;
+
+.compressFileButton {
+    margin-top: 0.4em;
+    padding: 0.9em;
+    border: 1px solid white;
+    background-color: $compressFileButton;
+    color: white;
+    font-weight: 900;
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: lighten($compressFileButton, 40%) !important;
+        transition: all 0.3s ease-out;
+    }
+}
+
 
 .banner {
     background-color: black;
@@ -134,3 +238,35 @@ $initiateSession:#b55cc7;
     top: 320px;
     z-index: 999;
 }
+
+
+//file drag and drop zone
+.dragAndDropZone{
+    padding: 4em;
+}
+
+.dropzone {
+    height: 200px;    
+    background-color: #eee;
+    border: dashed 4px black;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+
+
+
+
+.textLink {
+    background-color: #f45e61;
+    color: #fff;
+    padding: 0.4em;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+

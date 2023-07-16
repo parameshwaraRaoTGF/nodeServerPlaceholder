@@ -12,13 +12,15 @@ import { RouterModule } from '@angular/router';
 
 import { zippedFileService } from './shared/service/zippedFile.service';
 import { LoadingInterceptor } from './shared/service/loading-interceptor.service';
+import { FileDragNDropDirective } from './file-dragDrop.directive';
 
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FileDragNDropDirective
         
   ],
   imports: [

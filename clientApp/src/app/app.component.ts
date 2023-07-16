@@ -46,7 +46,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
 
     this.userZipDetailsForm = this._FormBuilder.group({
-      userPath: ['', Validators.required],
+      userPath: ['', [Validators.required,Validators.minLength(5)]],
       compressedFilename: ['raosFileCompressed', Validators.required]
     });
 
@@ -65,6 +65,47 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public validateName(){
+
+    this.userZipDetailsForm.markAllAsTouched();
+    
+    let  {userPath } = this.userZipDetailsForm.value;
+
+    if(userPath && this.userZipDetailsForm.valid){
+      //assign the value
+      this.userPathName = <string>userPath;
+      this.getFileListFromGCP();
+    }
+
+  }
+
+  //to get files list
+
+  public getFileListFromGCP(){
+
+  }
+
+
+  //compress file Handler
+
+  public compressFiles(){
+
+  }
+
+  //file upload
+
+  public onFileSubmit($event:any){
+    let { target : { files } } = $event;    
+    let valid_files : Array<File> = files; 
+    this.sendFilesToGCPStorage(valid_files);
+  }
+
+  public onFileDragAndDrop(filesList:Array<File>){
+    this.sendFilesToGCPStorage(filesList);
+  }
+
+  public sendFilesToGCPStorage(files:Array<File>){
+   
+   
 
   }
 

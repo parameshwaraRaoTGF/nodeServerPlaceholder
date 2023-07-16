@@ -14,10 +14,10 @@ export class zippedFileService {
 
   baseURL: string = `${environment.backendOrigin}/`;
   //fileupload URL's
-  fileUploadURL: string = "/uploadFile";
-  compressedFileURL: string = "/compressedFileListDownload";
-  listAllFilesURL: string = "/fileList";
-  deleteAllFiles: string = "/deleteFile";
+  fileUploadURL: string = "uploadFile";
+  compressedFileURL: string = "compressedFileListDownload";
+  listAllFilesURL: string = "fileList";
+  deleteAllFiles: string = "deleteFile";
 
   constructor(private _httpClient: HttpClient) { }
 
@@ -113,7 +113,7 @@ public downloadFilesAsCompressed(userName: string, outputFileName: string): Obse
   return this._httpClient.post(url, {
     userPath: userName,
     compressedFilename: outputFileName
-  },{observe: 'response' , responseType: 'blob'}).pipe(catchError(this.errorHandler));
+  },{ reportProgress: true, observe: 'response' , responseType: 'blob'}).pipe(catchError(this.errorHandler));
 }
 
 

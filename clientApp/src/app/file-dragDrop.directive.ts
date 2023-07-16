@@ -27,6 +27,7 @@ export class FileDragNDropDirective {
   }
 
   @HostListener('drop', ['$event']) public onDrop(evt:any){
+    this.preventDefaultProgation(evt);
     this.renderer.setStyle(this.el.nativeElement,'background-color','#eee');
     this.renderer.setStyle(this.el.nativeElement,'border-color','black');
     this.renderer.setStyle(this.el.nativeElement,'border','4px dashed');    
